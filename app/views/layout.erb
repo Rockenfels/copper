@@ -4,10 +4,35 @@
   <link rel="stylesheet" href="/css/master.css">
 </head>
 <body>
+  <% if Helpers.is_logged_in?(session) %>
+
+    <header>
+      <img src="/images/logo.jpg" alt="copper logo">
+      <h1>Copper</h1>
+      <nav>
+        <ul>
+          <li><a href="/"></a>Home</li>
+          <li><a href="/owners/account"></a>My Account</li>
+          <li><a href="/dogs/random"></a>View a Dog!</li>
+        </ul>
+      </nav>
+    </header>
+
+  <% else %>
+
   <header>
     <img src="/images/logo.jpg" alt="copper logo">
     <h1>Copper</h1>
+    <nav>
+      <ul>
+        <li><a href="/"></a>Home</li>
+        <li><a href="/owners/login"></a>Login</li>
+        <li><a href="/dogs/random"></a>View a Dog!</li>
+      </ul>
+    </nav>
   </header>
+
+  <% end %>
 
   <%= yield %>
 

@@ -4,7 +4,5 @@ if ActiveRecord::Migrator.needs_migration?
 end
 
 use Rack::MethodOverride
-use ShelterController
-### use OtherController2
-### use OtherController3
-run ApplicationController
+use DogController
+run OwnerController

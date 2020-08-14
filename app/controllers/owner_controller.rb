@@ -17,9 +17,9 @@ class OwnerController < Sinatra::Base
   post '/owners/signup' do
     owner = Owner.new(:username => params[:username], :password => params[:password])
     if owner.save
-      redirect "/owners/login"
+      redirect to "/owners/login"
     else
-      redirect "/owners/failure"
+      redirect to "/owners/failure"
     end
   end
 
@@ -31,14 +31,14 @@ class OwnerController < Sinatra::Base
     owner = Owner.find_by(:username => params[:username])
 		if owner && owner.authenticate(params[:password])
 			session[:user_id] = user.id
-			redirect "/owners/account"
+			redirect to "/owners/account"
 		else
-			redirect "/owners/failure"
+			redirect to "/owners/failure"
 		end
   end
 
   get 'owners/account' do
-    @user = Owner.find(session[:user_id])
+    @user = Helpers.current_user(session)
     erb :account
   end
 

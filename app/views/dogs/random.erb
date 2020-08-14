@@ -1,0 +1,22 @@
+<h3>Here's a potential new best friend: </h3>
+<h2><%= @dog.name %></h2>
+<p><%= @dog.breed %></p>
+<p><%= @dog.age %></p>
+<p><%= @dog.color %></p>
+<p><%= @dog.loctation %></p>
+
+<h2>Adopt Me- I filled out my own paperwork!</h2>
+<h1>(if you adopt me, I'll even change my name!)</h1>
+<form class="form adoption" action="dogs/adopt" method="post">
+  <label for="name">My Name:</label>
+  <input type="text" name="dog[name]" value=<%= @dog.name %>>
+  <label for="breed">My Breed:</label>
+  <input type="text" name="dog[breed]" value=<%= @dog.breed %> readonly>
+  <label for="age">My Age:</label>
+  <input type="text" name="dog[age]" value=<%= @dog.age %> readonly>
+  <label for="color">My Fur Color:</label>
+  <input type="text" name="dog[color]" value=<%= @dog.color %> readonly>
+  <label for="name">My Current Location:</label>
+  <input type="text" name="dog[location]" value=<%= @dog.location %> readonly>
+  <input type="submit" name="submit" value="Submit">
+</form>
