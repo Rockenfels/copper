@@ -1,10 +1,4 @@
-class OwnerController < Sinatra::Base
-
-  configure do
-    set :public_folder, 'public'
-    set :views, 'app/views' enable :sessions
-    set :session_secret, ENV[SESSION_SECRET]
-  end
+class OwnerController < DogController
 
   get '/' do
     erb :index
@@ -40,6 +34,11 @@ class OwnerController < Sinatra::Base
   get 'owners/account' do
     @user = Helpers.current_user(session)
     erb :account
+  end
+
+  get 'owners/logout' do
+    session.clear
+    redirect to('/')
   end
 
 end

@@ -1,15 +1,17 @@
 <h2>Update <%= @dog.name %>'s information below: </h2>
 <form class="form edit" action="dogs/edit" method="post">
-  <label for="name">My Name:</label>
+  <label for="id">Dog Id Number:</label>
+  <input type="text" name="id" value=<%= @dog.id %> readonly>
+  <label for="dog[name]">My Name:</label>
   <input type="text" name="dog[name]" value=<%= @dog.name %>>
-  <label for="breed">My Breed:</label>
+  <label for="dog[breed]">My Breed:</label>
   <input type="text" name="dog[breed]" value=<%= @dog.breed %> readonly>
-  <label for="age">My Age (can be updated on my birthday!):</label>
+  <label for="dog[age]">My Age (can be updated on my birthday!):</label>
   <input type="text" name="dog[age]" value=<%= @dog.age %>>
-  <label for="color">My Fur Color:</label>
-  <input type="text" name="dog[color]" value=<%= @dog.color %> readonly>
-  <label for="name">My Current Location (change this when I get to our furever home!):</label>
-  <input type="text" name="dog[location]" value=<%= @dog.location %>>
+  <label for="dog[sex]">My Gender:</label>
+  <input type="text" name="dog[sex]" value=<%= @dog.sex %> readonly>
+  <label for="dog[description]">Description:</label>
+  <textarea name="dog[description]" rows="8" cols="80" value=<%= @dog.description %>></textarea>
   <input type="submit" name="submit" value="Submit">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
 </form>

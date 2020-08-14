@@ -1,13 +1,15 @@
 <h3>Here's a potential new best friend: </h3>
-<h2><%= @dog.name %></h2>
-<p><%= @dog.breed %></p>
-<p><%= @dog.age %></p>
-<p><%= @dog.color %></p>
-<p><%= @dog.loctation %></p>
+<h2>Name: <br><%= @dog.name %></h2>
+<p>Breed: <br><%= @dog.breed %></p>
+<p>Age: <br><%= @dog.age %></p>
+<p>Gender: <br><%= @dog.sex %></p>
+<p>Descripton: <br><%= @dog.description %></p>
 
 <h2>Adopt Me- I filled out my own paperwork!</h2>
 <h1>(if you adopt me, I'll even change my name!)</h1>
 <form class="form adoption" action="dogs/adopt" method="post">
+  <label for="id">Dog Id Number:</label>
+  <input type="text" name="id" value=<%= @dog.id %> readonly>
   <label for="name">My Name:</label>
   <input type="text" name="dog[name]" value=<%= @dog.name %>>
   <label for="breed">My Breed:</label>
