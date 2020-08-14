@@ -3,7 +3,7 @@ class DogController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views' enable :sessions
-    set :session_secret, 'change-me'
+    set :session_secret, ENV[SESSION_SECRET] { SecureRandom.hex(64) }
   end
 
   get '/dogs/new' do
