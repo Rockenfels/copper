@@ -1,20 +1,25 @@
-class DogController < Sinatra::Base
 
+class DogController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
-    set :session_secret, ENV['SESSION_SECRET'] { SecureRandom.hex(64) }
+    set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
+  end
+
+  get '/' do
+    erb :index
   end
 
   get '/dogs/new' do
     erb :'/dogs/new_dog'
   end
 
-  post 'dogs/new' do
+  post '/dogs/new' do
     if Helpers.is_logged_in(session)
+      pd = params[:dog]
       owner = Helpers.current_user(session)
-      dog = Dog.create(params[:dog])
+      dog = Dog.create(sanitize_sql_array(["name=? and breed=? and age=? and sex=? and description=?", pd.name, pd.age, pd.sex, pd.description]))
       dog[:owner_id] = owner[:id]
       dog.save
 
@@ -33,34 +38,44 @@ class DogController < Sinatra::Base
     end
   end
 
-  patch 'dogs/:id' do
+  patch '/dogs/:id' do
+    pd = params[:dog]
     current = Helpers.current_user(session)
     dog = Dogs.find(params[:id])
+
     if Helpers.is_logged_in(session) && dog.owner_id == current.id
+      updates = sanitize_sql_for_conditions([
+        "name=? and age=? and description=?",
+        params[:name],
+        params[:age],
+        params[:description]
+        ])
+
       dog = Dog.find_by_id(params[:id])
-      dog.name = params[:name]
-      dog.age = params[:age]
-      dog.location = params[:location]
+      dog.name = updates["name"]
+      dog.age = params["age"]
+      dog.description = params["description"]
       dog.save
       redirect to '/owners/account'
+
     else
       redirect to '/dogs/failure'
     end
   end
 
   get '/dogs/random' do
-    dogs = HTTParty.get('https://api.findadogfor.me/api/dog')
-
-    @dog = dogs[rand(dogs.length)]
-
+    petfinder = Petfinder::Client.new(ENV.fetch('PETFINDER_KEY'), ENV.fetch('PETFINDER_SECRET'))
+    dogs = petfinder.animals(type: dog)
+    @dog = dogs[Random(dogs.length-1)]
+    binding.pry
     erb :'dogs/random'
   end
 
-  post 'dogs/adopt' do
+  post '/dogs/adopt' do
+    pd = params[:dog]
     if Helpers.is_logged_in(session)
       owner = Helpers.current_user(session)
-      dog = Dog.create(params[:dog])
-      dog[:owner_id] = owner[:id]
+      dog = Dog.create(sanitize_sql_array(["name=? and breed=? and age=? and sex=? and description=?", pd.name, pd.age, pd.sex, pd.description]))
       dog.save
 
       redirect to '/owners/account'
@@ -69,7 +84,7 @@ class DogController < Sinatra::Base
     end
   end
 
-  delete 'dogs/:id' do
+  delete '/dogs/:id' do
     @dog = Dog.find_by_id(params[:id])
     @dog.delete
 
