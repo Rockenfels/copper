@@ -15,7 +15,7 @@ class DogController < Sinatra::Base
   end
 
   post '/dogs/new' do
-    if Helpers.is_logged_in(session)
+    if Helpers.is_logged_in?(session)
       pd = params[:dog]
       owner = Helpers.current_user(session)
       dog = Dog.create(sanitize_sql_array(["name=? and breed=? and age=? and sex=? and description=?", pd.name, pd.age, pd.sex, pd.description]))
@@ -24,16 +24,16 @@ class DogController < Sinatra::Base
 
       redirect to '/owners/account'
     else
-      redirect to '/dogs/failure'
+      erb :'/dogs/failure'
     end
   end
 
   get '/dogs/:id/edit' do
-    if Helpers.is_logged_in(session)
+    if Helpers.is_logged_in?(session)
       @dog = Dog.find(params[:id])
       erb :'dogs/edit'
     else
-      redirect '/dogs/failure'
+      erb :'/dogs/failure'
     end
   end
 
@@ -58,20 +58,20 @@ class DogController < Sinatra::Base
       redirect to '/owners/account'
 
     else
-      redirect to '/dogs/failure'
+      erb :'/dogs/failure'
     end
   end
-  
+
   post '/dogs/adopt' do
     pd = params[:dog]
-    if Helpers.is_logged_in(session)
+    if Helpers.is_logged_in?(session)
       owner = Helpers.current_user(session)
       dog = Dog.create(sanitize_sql_array(["name=? and breed=? and age=? and sex=? and description=?", pd.name, pd.age, pd.sex, pd.description]))
       dog.save
 
       redirect to '/owners/account'
     else
-      redirect to '/dogs/failure'
+      erb :'/dogs/failure'
     end
   end
 

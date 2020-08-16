@@ -1,3 +1,4 @@
+require 'pry'
 class OwnerController < DogController
   get '/owners/signup' do
     erb :'/owners/signup'
@@ -8,7 +9,7 @@ class OwnerController < DogController
     if owner.save
       redirect to "/owners/login"
     else
-      redirect to "/owners/failure"
+      erb :'/owners/failure'
     end
   end
 
@@ -20,14 +21,16 @@ class OwnerController < DogController
     owner = Owner.find_by(:username => params[:username])
 		if owner && owner.authenticate(params[:password])
 			session[:user_id] = owner.id
-			redirect to "/owners/account"
+      @user = owner
+			erb :'/owners/account'
 		else
-			redirect to "/owners/failure"
+			erb :'/owners/failure'
 		end
   end
 
   get '/owners/account' do
     @user = Helpers.current_user(session)
+    binding.pry
     erb :'/owners/account'
   end
 
