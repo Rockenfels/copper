@@ -1,3 +1,9 @@
 body{
-  
+  font-family: 'Nunito', sans-serif;
+  background-color: #FFFF
+  color: #AAAF
+  display: flex
+  flex-direction: column;
+  align-items: center;
+  background-image: url('./public/images/Hero-background.jpg');
 }

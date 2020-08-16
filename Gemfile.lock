@@ -136,7 +136,7 @@ DEPENDENCIES
   bcrypt
   capybara
   database_cleaner!
-  petfinder
+  petfinder (= 2.0.1)
   pry
   rack-test
   rake

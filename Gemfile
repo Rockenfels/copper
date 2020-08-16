@@ -11,7 +11,7 @@ gem 'shotgun', group: :development
 gem 'pry', group: :development
 gem 'bcrypt'
 gem 'tux', group: :development
-gem 'petfinder'
+gem 'petfinder', '2.0.1'
 
 group :test do
   gem 'rspec'
