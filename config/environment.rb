@@ -2,7 +2,6 @@ ENV['SINATRA_ENV'] ||= "development"
 
 require 'bundler'
 Bundler.require(:default, ENV['SINATRA_ENV'])
-require 'petfinder'
 
 require_all 'app'
 
