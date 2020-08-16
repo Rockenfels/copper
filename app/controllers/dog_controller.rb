@@ -1,4 +1,3 @@
-require 'petfinder'
 class DogController < Sinatra::Base
   configure do
     set :public_folder, 'public'

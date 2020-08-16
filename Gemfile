@@ -11,7 +11,6 @@ gem 'shotgun', group: :development
 gem 'pry', group: :development
 gem 'bcrypt'
 gem 'tux', group: :development
-gem 'httparty'
 gem 'petfinder'
 
 group :test do
