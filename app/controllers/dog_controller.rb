@@ -61,15 +61,7 @@ class DogController < Sinatra::Base
       redirect to '/dogs/failure'
     end
   end
-
-  get '/dogs/random' do
-    petfinder = Petfinder::Client.new(ENV.fetch('PETFINDER_KEY'), ENV.fetch('PETFINDER_SECRET'))
-    dogs = petfinder.animals(type: dog)
-    @dog = dogs[Random(dogs.length-1)]
-    binding.pry
-    erb :'dogs/random'
-  end
-
+  
   post '/dogs/adopt' do
     pd = params[:dog]
     if Helpers.is_logged_in(session)
