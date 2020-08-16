@@ -12,6 +12,7 @@ gem 'pry', group: :development
 gem 'bcrypt'
 gem 'tux', group: :development
 gem 'petfinder', '2.0.1'
+gem 'sanitize'
 
 group :test do
   gem 'rspec'

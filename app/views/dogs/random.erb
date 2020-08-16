@@ -2,23 +2,21 @@
 <h2>Name: <br><%= @dog.name %></h2>
 <p>Breed: <br><%= @dog.breed %></p>
 <p>Age: <br><%= @dog.age %></p>
-<p>Gender: <br><%= @dog.sex %></p>
+<p>Gender: <br><%= @dog.gender %></p>
 <p>Descripton: <br><%= @dog.description %></p>
 
 <h2>Adopt Me- I filled out my own paperwork!</h2>
 <h1>(if you adopt me, I'll even change my name!)</h1>
 <form class="form adoption" action="dogs/adopt" method="post">
-  <label for="id">Dog Id Number:</label>
-  <input type="text" name="id" value=<%= @dog.id %> readonly>
-  <label for="name">My Name:</label>
+  <label for="dog[name]">My Name:</label>
   <input type="text" name="dog[name]" value=<%= @dog.name %>>
-  <label for="breed">My Breed:</label>
+  <label for="dog[breed]">My Breed:</label>
   <input type="text" name="dog[breed]" value=<%= @dog.breed %> readonly>
-  <label for="age">My Age:</label>
+  <label for="dog[age]">My Age:</label>
   <input type="text" name="dog[age]" value=<%= @dog.age %> readonly>
-  <label for="color">My Fur Color:</label>
-  <input type="text" name="dog[color]" value=<%= @dog.color %> readonly>
-  <label for="name">My Current Location:</label>
-  <input type="text" name="dog[location]" value=<%= @dog.location %> readonly>
-  <input type="submit" name="submit" value="Submit">
+  <label for="dog[gender]">My Gender:</label>
+  <input type="text" name="dog[gender]" value=<%= @dog.gender %> readonly>
+  <label for="dog[description]">About Me:</label>
+  <textarea name="dog[description]" rows="8" cols="80" value=<%= @dog.description %>  readonly><%= @dog.description %></textarea>
+  <input type="submit" name="Submit" value="Adopt Me!">
 </form>

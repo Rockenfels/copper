@@ -3,8 +3,8 @@ class CreateTableDogs < ActiveRecord::Migration[5.2]
     create_table :dogs do |t|
       t.string :name
       t.string :breed
-      t.integer :age
-      t.string :sex
+      t.string :age
+      t.string :gender
       t.string :description
       t.integer :owner_id
       t.timestamps null: false
