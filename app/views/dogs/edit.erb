@@ -1,6 +1,6 @@
 <div class="content">
   <h2>Update <%= @dog.name %>'s information below: </h2>
-  <form class="form edit" action="dogs/edit" method="post">
+  <form class="form edit" action=<%= '/dogs/' + @dog.id.to_s + '/edit' %> method="post">
     <label for="id">Dog Id Number:</label>
     <input type="text" name="id" value=<%= @dog.id %> readonly>
     <label for="dog[name]">My Name:</label>
