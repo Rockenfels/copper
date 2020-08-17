@@ -8,7 +8,7 @@
   <% if Helpers.is_logged_in?(session) %>
 
     <header>
-      <img src="./public/images/logo.jpg" alt="copper logo">
+      <img src="/images/logo.png" alt="copper logo">
       <h1>Copper</h1>
       <nav>
         <ul>
@@ -22,7 +22,7 @@
   <% else %>
 
   <header>
-    <img src="/images/logo.jpg" alt="copper logo">
+    <img src="/images/logo.png" alt="copper logo">
     <h1>Copper</h1>
     <nav>
       <ul>
@@ -34,7 +34,8 @@
   </header>
 
   <% end %>
-
-  <%= yield %>
+  <div id="yield-field">
+      <%= yield %>
+  </div>
 
 </body>

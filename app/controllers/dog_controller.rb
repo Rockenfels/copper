@@ -16,18 +16,10 @@ class DogController < Sinatra::Base
   end
 
   post '/dogs/new' do
+
     if Helpers.is_logged_in?(session)
-      pd = params[:dog]
-      owner = Helpers.current_user(session)
-      data = {
-        :name => Sanitize.fragment(pd.name),
-        :breed => Sanitize.fragment(pd.breed),
-        :age => Sanitize.fragment(pd.age),
-        :gender => Sanitize.fragment(pd.gender),
-        :description => Sanitize.fragment(pd.description),
-      }
-      dog = Dog.create(data)
-      dog[:owner_id] = owner[:id]
+      dog = Dog.create(params[:dog])
+      dog[:owner_id] = Helpers.current_user(session).id
       dog.save
 
       redirect to '/owners/account'
@@ -36,8 +28,8 @@ class DogController < Sinatra::Base
     end
   end
 
-  get '/dogs/:id/edit' do
-    if Helpers.is_logged_in?(session)
+  post '/dogs/:id/edit' do
+    if Helpers.is_logged_in?(session) && Dog.find_by_id(params[:id]).owner_id == Helpers.current_user(session).id
       @dog = Dog.find(params[:id])
       erb :'dogs/edit'
     else
@@ -50,17 +42,11 @@ class DogController < Sinatra::Base
     current = Helpers.current_user(session)
     dog = Dog.find(params[:id])
 
-    if Helpers.is_logged_in?(session) && dog.owner_id == current.id
-      updates = {
-        :name => Sanitize.fragment(pd.name),
-        :age => Sanitize.fragment(pd.age),
-        :description => Sanitize.fragment(pd.description),
-      }
-
+    if Helpers.is_logged_in?(session) && Dog.find_by_id(params[:id]).owner_id == Helpers.current_user(session).id
       dog = Dog.find_by_id(params[:id])
-      dog.name = updates.name
-      dog.age = params.age
-      dog.description = params.description
+      dog.name = pd.name
+      dog.age = pd.age
+      dog.description =  pd.description
       dog.save
       redirect to '/owners/account'
 
@@ -77,19 +63,12 @@ class DogController < Sinatra::Base
     erb :'dogs/random'
   end
 
-  post '/dogs/adopt' do
-    pd = params[:dog]
-    if Helpers.is_logged_in(session)
+  post '/dogs/dogs/adopt' do
+    if Helpers.is_logged_in?(session)
       owner = Helpers.current_user(session)
-      data = {
-        :name => Sanitize.fragment(pd.name),
-        :breed => Sanitize.fragment(pd.breed),
-        :age => Sanitize.fragment(pd.age),
-        :gender => Sanitize.fragment(pd.gender),
-        :description => Sanitize.fragment(pd.description),
-      }
-      dog = Dog.create(data)
-
+      dog = Dog.create(params[:dog])
+      dog[:owner_id] = owner.id
+      dog.save
       redirect to '/owners/account'
     else
       erb :'/dogs/failure'
