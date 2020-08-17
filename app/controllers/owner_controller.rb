@@ -8,7 +8,7 @@ class OwnerController < DogController
     if owner.save
       redirect to "/owners/login"
     else
-      redirect to "/owners/failure"
+      erb :'/owners/failure'
     end
   end
 
@@ -22,7 +22,7 @@ class OwnerController < DogController
 			session[:user_id] = owner.id
 			redirect to "/owners/account"
 		else
-			redirect to "/owners/failure"
+			erb :'/owners/failure'
 		end
   end
 

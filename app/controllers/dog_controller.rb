@@ -63,7 +63,7 @@ class DogController < Sinatra::Base
     erb :'dogs/random'
   end
 
-  post '/dogs/dogs/adopt' do
+  post '/dogs/adopt' do
     if Helpers.is_logged_in?(session)
       owner = Helpers.current_user(session)
       dog = Dog.create(params[:dog])

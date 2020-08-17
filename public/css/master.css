@@ -59,28 +59,28 @@ li{
 }
 
 #yield-field{
+  margin: 0;
+  padding: 0;
   transform: translateX(35%);
   margin-top: 25px;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   height: auto;
   width: 60vw;
   border-radius: 5px;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
   background-image: url('/images/yield-field-bkgrnd.jpg');
   background-size: cover;
 }
 
-#yield-field > button {
-  width: 5%;
+#yield-field > form {
+  display: block;
   height: auto;
 }
 
 .content{
-    background-color: rgba(255, 255, 255, 0.5);
-    width: inherit;
-    height: 100%;
-    border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: inherit;
+  height: inherit;
+  border-radius: 10px;
 }
