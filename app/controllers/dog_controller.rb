@@ -4,7 +4,7 @@ class DogController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
-    set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
+    set :session_secret, ENV['SESSION_SECRET'] { SecureRandom.hex(64) }
   end
 
   get '/' do
@@ -19,9 +19,15 @@ class DogController < Sinatra::Base
 
     if Helpers.is_logged_in?(session)
       pd = params[:dog]
-        #ADD SANITIZATION OF PARAMS HERE
-      dog = Dog.new(pd)
+      dog = Dog.new
+
+      dog.name = Helpers.h(pd['name'])
+      dog.breed = Helpers.h(pd['breed'])
+      dog.age = Helpers.h(pd['age'])
+      dog.gender = Helpers.h(pd['gender'])
+      dog.description = Helpers.h(pd['description'])
       dog[:owner_id] = Helpers.current_user(session).id
+
       dog.save
 
       redirect to '/owners/account'
@@ -32,7 +38,7 @@ class DogController < Sinatra::Base
 
   post '/dogs/:id/edit' do
     if Helpers.is_logged_in?(session) && Helpers.owner_check(params[:id], session)
-      @dog = Helpers.params_dog
+      @dog = Helpers.params_dog(params)
       erb :'/dogs/edit'
     else
       erb :'/dogs/failure'
@@ -41,35 +47,50 @@ class DogController < Sinatra::Base
 
   patch '/dogs/:id/edit' do
     pd = params[:dog]
-    dog = Helpers.params_dog
+    dog = Helpers.params_dog(params)
 
     if Helpers.is_logged_in?(session) && Helpers.owner_check(params[:id], session)
-  #ADD SANITIZATION OF PARAMS HERE
-      dog.name = pd[:name]
-      dog.age = pd[:age]
-      dog.description =  pd[:description]
+
+      dog.name = Helpers.h(pd['name'])
+      dog.age = Helpers.h(pd['age'])
+      dog.description = Helpers.h(pd['description'])
+
       dog.save
       redirect to '/owners/account'
 
     else
       erb :'/dogs/failure'
     end
+
   end
 
   get '/dogs/random' do
-    petfinder = Petfinder::Client.new(ENV.fetch('PETFINDER_KEY'), ENV.fetch('PETFINDER_SECRET'))
+    petfinder = Petfinder::Client.new(ENV['PETFINDER_KEY'], ENV['PETFINDER_SECRET'])
     dogs = petfinder.animals(type: 'dog')
     dog = dogs[0][rand(dogs.length-1)]
-    @dog = Dog.new(name: dog.name, breed: dog["breeds"]["primary"], age: dog.age, gender: dog.gender, description: dog.description)
+    @dog = Dog.new
+    @dog.name = Helpers.h(dog.name)
+    @dog.breed = Helpers.h(dog['breeds']['primary'])
+    @dog.age = Helpers.h(dog.age)
+    @dog.gender = Helpers.h(dog.gender)
+    @dog.description = Helpers.h(dog.description)
+
+    @dog.save
     erb :'dogs/random'
   end
 
   post '/dogs/adopt' do
     if Helpers.is_logged_in?(session)
+      pd = params[:dog]
       owner = Helpers.current_user(session)
-      #ADD SANITIZATION OF PARAMS HERE
-      dog = Dog.create(params[:dog])
+
+      dog.name = Helpers.h(pd['name'])
+      dog.breed = Helpers.h(pd['breed'])
+      dog.age = Helpers.h(pd['age'])
+      dog.gender = Helpers.h(pd['gender'])
+      dog.description = Helpers.h(pd['description'])
       dog[:owner_id] = owner.id
+
       dog.save
       redirect to '/owners/account'
     else

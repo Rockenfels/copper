@@ -1,10 +1,9 @@
 body{
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   font-family: 'Nunito', sans-serif;
   background-color: #FFF;
   color: rgba(0,0,0,.8);
-  display: block;
   text-align: center;
   background-color: #298BD1;
 }
@@ -26,7 +25,7 @@ header{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100vw;
+  width: 100vw%;
   height: 15vh;
   background-color: #D16534;
   box-shadow: 5px 0px 5px black;
@@ -39,17 +38,25 @@ header > img {
 }
 
 nav{
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
   width: 50%;
   height: inherit;
+  margin: 0px;
+  padding: 0px;
 }
 
 nav > ul {
+  padding: 0px;
+  margin: 0px;
+  margin-right: 10px;
   height: inherit;
   width: 100%;
   display: flex;
-  justify-content: space-around;
   flex-direction: row;
+  justify-content: flex-start;
+  align-content: flex-end;
   list-style: none;
 }
 
@@ -57,10 +64,13 @@ li{
   width: auto;
   height: inherit;
 }
+a:visited{
+  color:white;
+}
 
 #yield-field{
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   transform: translateX(35%);
   margin-top: 25px;
   display: flex;
@@ -71,7 +81,6 @@ li{
   border-radius: 5px;
   background-image: url('/images/yield-field-bkgrnd.jpg');
   background-size: cover;
-}
 
 #yield-field > form {
   display: block;
@@ -83,4 +92,10 @@ li{
   width: inherit;
   height: inherit;
   border-radius: 10px;
+}
+
+.tile{
+  background-color: white;
+  border-radius: 15px;
+  border: 3px ridge gray;
 }

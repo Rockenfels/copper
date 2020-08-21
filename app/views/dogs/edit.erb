@@ -3,16 +3,23 @@
   <form class="form edit" action=<%= '/dogs/' + @dog.id.to_s + '/edit' %> method="post">
     <label for="id">Dog Id Number:</label>
     <input type="text" name="id" value=<%= @dog.id %> readonly>
+    <br>
     <label for="dog[name]">My Name:</label>
     <input type="text" name="dog[name]" value=<%= @dog.name %>>
+    <br>
     <label for="dog[breed]">My Breed:</label>
     <input type="text" name="dog[breed]" value=<%= @dog.breed %> readonly>
+    <br>
     <label for="dog[age]">My Age (can be updated on my birthday!):</label>
     <input type="text" name="dog[age]" value=<%= @dog.age %>>
+    <br>
     <label for="dog[gender]">My Gender:</label>
     <input type="text" name="dog[gender]" value=<%= @dog.gender %> readonly>
+    <br>
     <label for="dog[description]">Description:</label>
+    <br>
     <textarea name="dog[description]" rows="8" cols="80" value=<%= @dog.description %>><%= @dog.description %></textarea>
+    <br>
     <input type="submit" name="submit" value="Submit">
     <input id="hidden" type="hidden" name="_method" value="PATCH">
   </form>

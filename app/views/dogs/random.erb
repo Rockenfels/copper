@@ -11,14 +11,19 @@
   <form class="form adoption" action="/dogs/adopt" method="post">
     <label for="dog[name]">My Name:</label>
     <input type="text" name="dog[name]" value=<%= @dog.name %>>
+    <br>
     <label for="dog[breed]">My Breed:</label>
     <input type="text" name="dog[breed]" value=<%= @dog.breed %> readonly>
+    <br>
     <label for="dog[age]">My Age:</label>
     <input type="text" name="dog[age]" value=<%= @dog.age %> readonly>
+    <br>
     <label for="dog[gender]">My Gender:</label>
     <input type="text" name="dog[gender]" value=<%= @dog.gender %> readonly>
+    <br>
     <label for="dog[description]">About Me:</label>
     <textarea name="dog[description]" rows="8" cols="80" value=<%= @dog.description %>  readonly><%= @dog.description %></textarea>
+    <br>
     <input type="submit" name="Submit" value="Adopt Me!">
   </form>
 </div>
