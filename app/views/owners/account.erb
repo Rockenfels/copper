@@ -1,20 +1,22 @@
-<h2>Welcome, <%= @user.username %></h2>
+<div class="content">
+  <h2>Welcome, <%= @user.username %></h2>
 
-<h3>Here are your current dogs: </h3>
-<% dogs = Dog.where("owner_id = #{@user.id}") %>
-<% dogs.each do |dog| %>
-  <h1><%= dog.name %></h1>
-  <p><%= dog.breed %></p>
-  <p><%= dog.age %></p>
-  <p><%= dog.sex %></p>
-  <p><%= dog.description %></p>
-  <form class="button edit" action=<%= '/dogs/' + dog.id.to_s + '/edit'  %> method="get">
-    <input type="submit" name="Submit" value="Edit my info!">
-  </form>
-  <form class="button delete" action=<%= '/dogs/' + dog.id.to_s  %>  method="post">
-    <input type="submit" name="submit" value="Give me up...">
-    <input id="hidden" type="hidden" name="_method" value="DELETE">
-  </form>
-<% end %>
+  <h3>Here are your current dogs: </h3>
+  <% dogs = Dog.where("owner_id = #{@user.id}") %>
+  <% dogs.each do |dog| %>
+    <h1>Name: <%= dog.name %></h1>
+    <p>Breed: <%= dog.breed %></p>
+    <p>Age: <%= dog.age %></p>
+    <p>Gender: <%= dog.gender %></p>
+    <p>Description: <%= dog.description %></p>
+    <form class="button edit" action=<%= '/dogs/' + dog.id.to_s + '/edit'  %>  method="post">
+      <input type="submit" name="submit" value="Edit">
+    </form>
+    <form class="button delete" action=<%= '/dogs/' + dog.id.to_s  %>  method="post">
+      <input type="submit" name="submit" value="Give me up...">
+      <input id="hidden" type="hidden" name="_method" value="DELETE">
+    </form>
+  <% end %>
 
-<h2><a href="/dogs/new">Add one of your dogs</a></h2>
+  <h2><a href="/dogs/new">Add one of your dogs</a></h2>
+</div>

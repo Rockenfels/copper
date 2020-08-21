@@ -1,11 +1,12 @@
 body{
+  margin: 0;
+  padding: 0;
   font-family: 'Nunito', sans-serif;
   background-color: #FFF;
-  color: gray;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-image: url('./public/images/Hero-background.jpg');
+  color: rgba(0,0,0,.8);
+  display: block;
+  text-align: center;
+  background-color: #298BD1;
 }
 
 link:visited{
@@ -21,5 +22,65 @@ link:active{
 }
 
 header{
-  color: orange;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+  height: 15vh;
+  background-color: #D16534;
+  box-shadow: 5px 0px 5px black;
+}
+
+header > img {
+
+  height: auto;
+  width: 10%;
+}
+
+nav{
+  text-align: center;
+  width: 50%;
+  height: inherit;
+}
+
+nav > ul {
+  height: inherit;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  list-style: none;
+}
+
+li{
+  width: auto;
+  height: inherit;
+}
+
+#yield-field{
+  margin: 0;
+  padding: 0;
+  transform: translateX(35%);
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: auto;
+  width: 60vw;
+  border-radius: 5px;
+  background-image: url('/images/yield-field-bkgrnd.jpg');
+  background-size: cover;
+}
+
+#yield-field > form {
+  display: block;
+  height: auto;
+}
+
+.content{
+  background-color: rgba(255, 255, 255, 0.5);
+  width: inherit;
+  height: inherit;
+  border-radius: 10px;
 }
