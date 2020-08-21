@@ -19,7 +19,8 @@ class DogController < Sinatra::Base
 
     if Helpers.is_logged_in?(session)
       pd = params[:dog]
-      dog = Dog.create(pd)
+        #ADD SANITIZATION OF PARAMS HERE
+      dog = Dog.new(pd)
       dog[:owner_id] = Helpers.current_user(session).id
       dog.save
 
@@ -30,8 +31,8 @@ class DogController < Sinatra::Base
   end
 
   post '/dogs/:id/edit' do
-    if Helpers.is_logged_in?(session) && Dog.find_by_id(params[:id]).owner_id == Helpers.current_user(session).id
-      @dog = Dog.find(params[:id])
+    if Helpers.is_logged_in?(session) && Helpers.owner_check(params[:id], session)
+      @dog = Helpers.params_dog
       erb :'/dogs/edit'
     else
       erb :'/dogs/failure'
@@ -40,10 +41,10 @@ class DogController < Sinatra::Base
 
   patch '/dogs/:id/edit' do
     pd = params[:dog]
-    current = Helpers.current_user(session)
-    dog = Dog.find(params[:id])
+    dog = Helpers.params_dog
 
-    if Helpers.is_logged_in?(session) && Dog.find_by_id(params[:id]).owner_id == Helpers.current_user(session).id
+    if Helpers.is_logged_in?(session) && Helpers.owner_check(params[:id], session)
+  #ADD SANITIZATION OF PARAMS HERE
       dog.name = pd[:name]
       dog.age = pd[:age]
       dog.description =  pd[:description]
@@ -66,6 +67,7 @@ class DogController < Sinatra::Base
   post '/dogs/adopt' do
     if Helpers.is_logged_in?(session)
       owner = Helpers.current_user(session)
+      #ADD SANITIZATION OF PARAMS HERE
       dog = Dog.create(params[:dog])
       dog[:owner_id] = owner.id
       dog.save
@@ -76,9 +78,12 @@ class DogController < Sinatra::Base
   end
 
   delete '/dogs/:id' do
-    @dog = Dog.find_by_id(params[:id])
-    @dog.delete
-
-    redirect to '/owners/account'
+    if Helpers.owner_check(params[:id])
+      @dog = Dog.find_by_id(params[:id])
+      @dog.delete
+      redirect to '/owners/account'
+    end
+    redirect to '/'
   end
+
 end

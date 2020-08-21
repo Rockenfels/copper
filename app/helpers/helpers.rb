@@ -9,4 +9,13 @@ class Helpers
   def self.is_logged_in?(session)
     !!session[:user_id]
   end
+
+  def self.params_dog
+   Dog.find(params[:id])
+  end
+
+  def self.owner_check(id, session)
+    self.current_user(session).id == Dog.find(id).owner_id ? true : false
+  end
+
 end

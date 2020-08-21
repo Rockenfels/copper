@@ -5,6 +5,7 @@ class OwnerController < DogController
   end
 
   post '/owners/signup' do
+      #ADD SANITIZATION OF PARAMS HERE
     owner = Owner.new(username: params[:username], password: params[:password])
     if owner.save
       redirect to "/owners/login"
@@ -29,14 +30,21 @@ class OwnerController < DogController
   end
 
   get '/owners/account' do
-    @user = Helpers.current_user(session)
-    binding.pry
-    erb :'/owners/account'
+    if Helpers.is_logged_in?(session)
+     @user = Helpers.current_user(session)
+      erb :'/owners/account'
+    else
+      erb :'owners/failure'
+    end
   end
 
   get '/owners/logout' do
-    session.clear
-    redirect to('/')
+    if Helpers.is_logged_in?(session)
+      session.clear
+      redirect to('/')
+    else
+      erb :'/owners/failure'
+    end
   end
 
 end
