@@ -5,10 +5,9 @@ class OwnerController < DogController
   end
 
   post '/owners/signup' do
-
-    owner = Owner.new
+    owner = Owner.new()
     owner.username =  Helpers.h(params[:username])
-    owner.username =  Helpers.h(params[:password])
+    owner.password =  Helpers.h(params[:password])
 
     if owner.save
       redirect to "/owners/login"

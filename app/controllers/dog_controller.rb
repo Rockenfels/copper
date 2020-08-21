@@ -1,4 +1,3 @@
-require 'pry'
 class DogController < Sinatra::Base
   configure do
     set :public_folder, 'public'
@@ -99,7 +98,7 @@ class DogController < Sinatra::Base
   end
 
   delete '/dogs/:id' do
-    if Helpers.owner_check(params[:id])
+    if Helpers.owner_check(params[:id], session)
       @dog = Dog.find_by_id(params[:id])
       @dog.delete
       redirect to '/owners/account'
