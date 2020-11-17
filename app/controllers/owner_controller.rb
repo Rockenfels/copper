@@ -1,4 +1,3 @@
-require 'pry'
 class OwnerController < DogController
   get '/owners/signup' do
     erb :'/owners/signup'
@@ -37,7 +36,6 @@ class OwnerController < DogController
      @user = Helpers.current_user(session)
       erb :'/owners/account'
     else
-            binding.pry
       erb :'owners/failure'
     end
   end
