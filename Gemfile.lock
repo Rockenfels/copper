@@ -138,6 +138,7 @@ DEPENDENCIES
   activerecord (~> 5.2)
   bcrypt
   capybara
+  concurrent-ruby
   database_cleaner!
   dotenv
   petfinder (= 2.0.1)

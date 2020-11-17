@@ -11,6 +11,7 @@ gem 'bcrypt'
 gem 'tux', group: :development
 gem 'petfinder', '2.0.1'
 gem 'dotenv'
+gem 'concurrent-ruby'
 
 group :test do
   gem 'sqlite3'
