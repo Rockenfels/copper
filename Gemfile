@@ -1,5 +1,4 @@
 source "https://rubygems.org"
-gem 'ruby'
 gem 'sinatra'
 gem 'activerecord', '~> 5.2',  :require => 'active_record'
 gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
@@ -12,6 +11,7 @@ gem 'tux', group: :development
 gem 'petfinder', '2.0.1'
 gem 'dotenv'
 gem 'concurrent-ruby'
+gem 'puma'
 
 group :test do
   gem 'sqlite3'
