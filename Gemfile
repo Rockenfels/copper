@@ -3,7 +3,7 @@ gem 'sinatra'
 gem 'activerecord', '~> 5.2',  :require => 'active_record'
 gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
 gem 'require_all'
-gem 'pg'
+gem 'pg', group: :production
 gem 'thin'
 gem 'shotgun', group: :development
 gem 'bcrypt'
