@@ -10,7 +10,7 @@ gem 'bcrypt'
 gem 'tux', group: :development
 gem 'petfinder', '2.0.1'
 gem 'dotenv'
-gem 'concurrent-ruby'
+gem 'concurrent-ruby', '1.1.7'
 gem 'puma'
 
 group :test do
