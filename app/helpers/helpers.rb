@@ -2,7 +2,7 @@ require 'sinatra/base'
 class Helpers
 
   def self.current_user(session)
-    @user = Owner.find_by_id(session[:user_id])
+    @user = Owner.find_by(id: session[:user_id])
     @user
   end
 
